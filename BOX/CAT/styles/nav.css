@@ -1,0 +1,34 @@
+
+nav ul {
+list-style-type: none;
+margin: 0px;
+padding: 0px;
+padding-left: 10px;
+//background-color: black;
+width: 100%;
+height: 38px;
+}
+
+nav ul li {
+float: left;
+width: 10%;
+padding: 10px;
+background-color: white;
+border-right: solid 10px black;
+}
+
+nav ul li:hover {background-color: black;}
+nav ul li a {color: black;padding-left: 3%;text-decoration: none;}
+nav ul li.active a {color: grey;font-style:italic;padding-left: 3%;text-decoration: none;}
+nav ul li:hover a {color: white;}
+nav ul li.TITLE {background-color: white;}
+nav ul li.TITLE a {color: black;}
+
+nav hr {
+float: left;
+width: 100%;
+height: 10px;
+border: none;
+background-color: white;
+margin-bottom: 0px;
+}

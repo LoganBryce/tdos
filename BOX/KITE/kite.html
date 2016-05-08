@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+	<title>KITE POWER</title>
+	<head>
+		<style>
+
+		* {
+			color: white;
+			font-family: "Courier New", Georgia;
+		}
+		
+		html {
+			min-height: 100%;
+			    overflow: scroll;
+				overflow-x: hidden;
+		}
+		
+		::-webkit-scrollbar {
+			width: 0px;  /* remove scrollbar space */
+		}
+		
+		body {
+			background-color: black;
+			height: 6800px;
+		}
+		
+		h1 {
+			text-align: center;
+			font-weight:normal;
+			margin-bottom: 0px;
+			font-size: 70px;
+			margin-top: 30px;
+		}
+		
+		h2 {
+			margin-top: 0px;
+			text-align: center;
+			font-weight:normal;
+		}
+		
+		p {
+			margin-top: 0px;
+			text-align: center;
+			font-weight:normal;
+		}
+		
+		div.space {
+			margin-top: 300px;
+			margin-bottom: 300px;
+		}
+		
+		div.bigspace {
+			margin-top: 600px;
+			margin-bottom: 600px;
+		}
+		
+		div.biggerspace {
+			margin-top: 1200px;
+			margin-bottom: 1200px;
+		}
+		
+		a {
+			text-decoration: none;
+		}
+		</style>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script>
+		$.fn.scrollView = function () {
+			return this.each(function () {
+				$('html, body').animate({
+					scrollTop: $(this).offset().top
+				}, 1000);
+			}, {
+                duration: 300,
+                queue: false
+            });
+		}
+		</script>
+	</head>
+
+	<body>
+		
+		<h1 id="TOP">
+			KITE POWER
+		</h1>
+		<h2> A new wind power </h2>
+		<p><a onclick="$('#1').scrollView();" href="#">|<br>V</a></p>
+		<div class="bigspace"></div>
+		<h1 id="1">Kites; A history.</h1>
+		<h2>
+		Surely you’ve heard of kites? The ones with the string and the reel? Yeah those ones. Kites have been around for aeons, originally pioneered by the Chinese for transport and military purposes.
+		The Europeans found out about them (as they do everything) and started using them for transport to pull carts (hah! Take that romans!) and then the wright brothers took them and started using them to practice steering for their planes. These days we use kites for fun, racing and fighting.
+		</h2>
+		<br>
+		<p><a onclick="$('#2').scrollView();" href="#">|<br>V</a></p>
+		<div class="bigspace"></div>
+		<h1 id="2">Kites for Power</h1>
+		<h2>
+		During the energy crisis of ’06, a small company called ‘Makani’ developed a kite that had an on-board generator that allowed it to generate power from the wind! They were partly funded by Google[x] a semi-secret subsidiary of google that funds small businesses that look to the future.
+		</h2>
+		<br>
+		<p><a onclick="$('#3').scrollView();" href="#">|<br>V</a></p>
+		<div class="bigspace"></div>
+		<h1 id="3">Power kites?</h1>
+		<h2>
+		Power kites are like normal kites but have a generator mounted on them or on the ground which transforms the kinetic energy of them pulling to potential electrical energy. Power kites are a renewable power source because there will always be Wind, but not a renewable resource as we will not always be able to make them.
+		</h2>
+		<br>
+		<p><a onclick="$('#4').scrollView();" href="#">|<br>V</a></p>
+		<div class="space"></div>
+		<p><img src="ms=mp.png" width="40%" alt="WIND POWER IMAGE" /></p>
+		<div class="bigspace"></div>
+		<h1 id="4">Power Kites.</h1>
+		<h2>
+		Power kites fly up way above wind turbine height which allows them to generate more power as there is more wind.
+		They are used in areas with higher wind speeds which also have lower chances for earthquakes and storms.
+		</h2>
+		<br>
+		<p><a onclick="$('#5').scrollView();" href="#">|<br>V</a></p>
+		<div class="space"></div>
+		<p><img src="mh=mp.png" width="60%" alt="WIND POWER IMAGE" /></p>
+		<p style="color: #23B3CB;">|<br>V</p>
+		<div class="bigspace"></div>
+		<h1 id="5">Substantial kiting power for a new age.</h1>
+		<h2>
+		These days there are no commercial power kites flying. This is mainly due to cost and unreliability, also its kind of different and people don’t like that. I say “BRING BACK THE POWER KITES!” and you can too, visit <a href="http://strawpoll.me/7093128">THIS POLL</a> on your computer to vote to bring them back.
+		</h2>
+		<br>
+		<p><a onclick="$('#6').scrollView();" href="#">|<br>V</a></p>
+		<div class="bigspace"></div>
+		<h1 id="6">Thanks for Reading!</h1>
+		<p><a href="KITE.pptx"> - Download Powerpoint - </a></p>
+		<p><a onclick="$('#TOP').scrollView();" href="#">Back To Top</a></p>
+		<div class="bigspace"></div>
+		<h1>Bonus Italian Diagram!</h1>
+		<p><img alt="picture demonstrating kites irl. imagine a cg style 1980's picture" src="http://large.stanford.edu/courses/2012/ph240/vidaurre2/images/f1big.jpg"> </img></p>
+	</body>
+
+</html>

@@ -1,0 +1,38 @@
+/*
+'KEYS' By Ewan Breakey
+Control the selected hex
+with WASD and press E to select it.
+*/
+
+if (attemptCount == 0)
+{
+sx = 0;sy = 0;
+}
+
+//MOVE SELECTED
+if (getKeyPressed("a"))
+{sx -= 1;}
+
+if (getKeyPressed("d"))
+{sx += 1;}
+
+if (getKeyPressed("w"))
+{sy -= 1;}
+
+if (getKeyPressed("s"))
+{sy += 1;}
+
+//TRACE
+trace(sx,sy,redSat);
+
+//RESET?
+if (getKeyPressed("c"))
+{
+sx = 0;sy = 0;
+}
+
+//RETURN
+if (getKey("e"))
+{return hex(sx,sy);}
+else
+{return hex(-1,-1);}

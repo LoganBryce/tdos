@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>!ERROR!</title>
+	<link rel="icon" href="Icon.png">
+	<script type="text/javascript">
+		function game_background(){return 'white';}
+		function game_wbackground(){return 'black';}
+		function game_title(){return 'NEW GAME';}
+		function game_width(){return 1000;}
+		function game_height(){return 1000;}
+		
+		/*BONUS FUNCTION*/
+		function log(x){console.log(x);}
+		
+		/*INITIALIZE GAME*/
+		window.game = {};
+		window.game.keys = new Array();
+		
+		/*KEYBOARD CHECKING*/
+		for (var i=0;i<300;i++){window.game.keys[i]=false;}
+		document.onkeypress = function (e) { 
+			e = e || window.event; 
+			var code = e.keyCode;
+			if (window.game.keys[code] == 0)
+			{window.game.keys[code] = 2;}
+		};
+		
+		document.onkeyup = function (e) { 
+			e = e || window.event; 
+			var code = e.keyCode + 32;
+			window.game.keys[code] = 0;
+		};
+		
+		function getKey(x)
+		{
+			if (!(window.document.getElementById('left') == document.activeElement || window.document.getElementById('right') == document.activeElement))
+			{
+				var c = x.charCodeAt(0);
+				return window.game.keys[c] > 0;
+			}
+		}
+		
+		function getKeyPressed(x)
+		{
+			if (!(window.document.getElementById('left') == document.activeElement || window.document.getElementById('right') == document.activeElement))
+			{
+				var c = x.charCodeAt(0);
+				return window.game.keys[c] == 2 ? true : false;
+			}
+		}
+		
+		function updatePressed(x)
+		{
+			for (var i=0;i<300;i++){
+				window.game.keys[i] = window.game.keys[i] == 2 ? 1 : window.game.keys[i];
+			}
+		}
+		
+		/* MOUSE CHECKING */
+		mouse = {x:0, y:0, left: 0, right: 0, middle: 0};
+		
+		document.onmousemove = function(e){
+			mouse.x = e.pageX;
+			mouse.y = e.pageY;
+		}
+		
+		document.onmousedown = function(e)
+		{
+			if (e.button == 0 && mouse.left == 0){mouse.left = 2;}
+			if (e.button == 1 && mouse.middle == 0){mouse.middle = 2;}
+			if (e.button == 2 && mouse.right == 0){mouse.right = 2;}
+		}
+		
+		document.onmouseup = function(e)
+		{
+			if (e.button == 0){mouse.left = 0;}
+			if (e.button == 1){mouse.middle = 0;}
+			if (e.button == 2){mouse.right = 0;}
+		}
+		
+		function updateMouse()
+		{
+			mouse.left = mouse.left == 2 ? 1 : mouse.left;
+			mouse.middle = mouse.middle == 2 ? 1 : mouse.middle;
+			mouse.right = mouse.right == 2 ? 1 : mouse.right;
+		}
+		
+		function load_scripts()
+		{
+			var lcode = document.getElementById("left").value;
+			var rcode = document.getElementById("right").value
+			var lworked = true;var rworked = true;
+			
+			try {
+				eval("function lcode_ee(){"+lcode+"};lcode_ee();"); 
+			} catch (e) {
+				if (e instanceof SyntaxError) {
+					log("P1:SYNTAX:"+e.message);
+				}
+				log("P1:"+e.message);
+				lworked = false;
+			}
+			
+			try {
+				eval("function rcode_ee(){"+rcode+"};rcode_ee();");
+			} catch (e) {
+				if (e instanceof SyntaxError) {
+					log("P2:SYNTAX:"+e.message);
+				}
+				else
+				{
+					log("P2:"+e.message);
+				}
+				rworked = false;
+			}
+			
+			if (lworked){
+				player1_turne = Function(lcode);
+				if (player1_turne() == null){lworked = false;console.log("P1: NO RETURN VAL");}
+				else
+				{
+					if (player1_turne()[0] == null){lworked = false;console.log("P1: NO FIRST RETURN VAL");}
+					if (!typeof player1_turne() == 'object'){lworked = false;console.log("P1: INCORRECT RETURN TYPE, MUST BE ARRAY");}
+					if (player1_turne()[1] == null){lworked = false;console.log("P1: NO SECOND RETURN VAL");}
+				}
+			}
+			
+			if (rworked){
+				player2_turne = Function(rcode);
+				if (player2_turne() == null){rworked = false;console.log("P2: NO RETURN VAL");}
+				else
+				{
+					if (player2_turne()[0] == null){rworked = false;console.log("P2: NO FIRST RETURN VAL");}
+					if (!typeof player2_turne() == 'object'){rworked = false;console.log("P2: INCORRECT RETURN TYPE, MUST BE ARRAY");}
+					if (player2_turne()[1] == null){rworked = false;console.log("P2: NO SECOND RETURN VAL");}
+				}
+			}
+			
+			if (!lworked){window.document.getElementById("left-title").style = "background-color: white;";}else{window.document.getElementById("left-title").style = "background-color: black;";}
+			if (!rworked){window.document.getElementById("right-title").style = "background-color: white;";}else{window.document.getElementById("right-title").style = "background-color: black;";}
+			
+			if (lworked && customScriptLeft){player1_turn = Function(lcode);}		
+			if (rworked && customScriptRight){player2_turn = Function(rcode);}
+		}
+
+	</script>
+	<script type="text/javascript" src="Extra.js"></script>
+    <script type="text/javascript" src="Game.js"></script>
+	<script type="text/javascript">
+		document.title = game_title();
+		function engine_draw()
+		{		
+			if (document.getElementById('canvas').getContext)
+			{var ctx = document.getElementById('canvas').getContext('2d');}
+			else
+			{alert("BROWSER UNSUPPORTED");}
+			ctx.fillStyle = game_background();
+			ctx.fillRect(0,0,document.getElementById('canvas').width,document.getElementById('canvas').height);
+			game_draw(ctx,window.game);
+			updatePressed();
+			updateMouse();
+			if (!gameStopped){load_scripts();}
+			window.requestAnimationFrame(engine_draw);
+		}
+	
+		function engine_init()
+		{
+			document.getElementById('canvas').width = game_width();
+			document.getElementById('canvas').height = game_height();
+			document.getElementById('body').style = "background-color:"+game_wbackground()+";"
+			game_init(window.game);
+			engine_draw();
+		}
+	</script>
+	<style>
+	
+		#content {padding-left: 20%;}
+	
+		* {
+			tab-size: 4;
+		}
+	
+		h1 {
+			color: #3D3D3D;
+			font-family: "Courier New",Georgia;
+		}
+		
+		a {
+			color: #3D3D3D;
+			font-family: "Courier New",Georgia;
+		}
+		
+		canvas {
+			margin-left: 20px;
+		}
+		
+		h1#title {
+			font-size: 100px;
+			margin-left: 100px;
+		}
+		
+		textarea {
+			background-color: #3D3D3D;
+			border: none;
+		}
+		
+		#boxes {
+			width: 600px;
+			margin: auto;
+			display: inline;
+		}
+		
+		div.box {
+			width: 300;
+			float: left;
+			padding-left: 10%;
+			padding-bottom: 100px;
+		}
+		
+		input.fileinput {
+			background-color: #3D3D3D;
+		}
+		
+	</style>
+    </head>
+	
+	<body id ="body" onload="engine_init();" style="background-color: black;">
+	<div id="content">
+		<h1 id="title">HEX</h1>
+		<h2 id="link"><a href="https://www.dropbox.com/sh/wzwinvrtutvinuh/AACIhhTlnKnXjGnqjklnnOaea?dl=0" target="_blank">BROWSE BOT EXAMPLES</a> &nbsp &nbsp <a href="tutorial.html" target="_blank"> VIEW TUTORIAL </a><a> - press 'R' to restart game</a></h2>
+		<canvas id="canvas" width="50%" height="50%" style="background-color: white;"></canvas>
+		
+		<div id="boxes">
+			<!--LEFT DIV!-->
+			<div id="left-div" class="box">
+				<h1 id="left-title" <!--onclick="customScriptLeft = !customScriptLeft;"!-->Player 1</h1>
+				<textarea id="left" rows="20" cols="50" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">var x = rnd(gridSize-1);
+var y = rnd(gridSize-1);
+return hex(x,y);</textarea>
+				<br>
+				<input id="left-input" class="fileinput" type="file"></input>
+			</div>
+
+			<!--RIGHT DIV!-->
+			<div id="right-div" class="box">
+				<h1 id="right-title" <!--onclick="customScriptRight = !customScriptRight;"!-->Player 2</h1>
+				<textarea id="right" rows="20" cols="50" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">var x = rnd(gridSize-1);
+var y = rnd(gridSize-1);
+return hex(x,y);</textarea>
+				<br>
+				<input id="right-input" class="fileinput" type="file"></input>
+			</div>
+		</div>
+	</body>
+	<!--DISABLE TABBING OUT IN TEXTAREA-->
+	<script>
+	var textareas = document.getElementsByTagName('textarea');
+	var count = textareas.length;
+	for(var i=0;i<count;i++){
+		textareas[i].onkeydown = function(e){
+			if(e.keyCode==9 || e.which==9){
+				e.preventDefault();
+				var s = this.selectionStart;
+				this.value = this.value.substring(0,this.selectionStart) + "\t" + this.value.substring(this.selectionEnd);
+				this.selectionEnd = s+1; 
+			}
+		}
+	}
+	</script>
+	<!--HANDLE FILE INPUTS-->
+	<script>
+		// IS FILE API SUPPORTED?
+		if (window.File && window.FileReader && window.FileList && window.Blob) {	
+			function readSingleFile1(evt) {
+				//READ FIRST FILE OF EVENT
+				var f = evt.target.files[0]; 
+
+				if (f) {
+				  var r = new FileReader();
+				  r.onload = function(e) { 
+						var contents = e.target.result;
+						document.getElementById("left").value = contents;
+				  }
+				  r.readAsText(f);
+				} else { 
+				  alert("Failed to load file");
+				}
+			}
+			
+			function readSingleFile2(evt) {
+				//READ FIRST FILE OF EVENT
+				var f = evt.target.files[0]; 
+
+				if (f) {
+				  var r = new FileReader();
+				  r.onload = function(e) { 
+						var contents = e.target.result;
+						document.getElementById("right").value = contents;
+				  }
+				  r.readAsText(f);
+				} else { 
+				  alert("Failed to load file");
+				}
+			}
+			
+			document.getElementById('left-input').addEventListener('change', readSingleFile1, false);
+			document.getElementById('right-input').addEventListener('change', readSingleFile2, false);
+		}
+		else
+		{
+		  alert("The File APIs are not fully supported by your browser.");
+		}
+		
+		
+	</script>
+  </div>
+</html>

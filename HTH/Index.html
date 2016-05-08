@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<style>
+			* {
+				font-size: 20px;
+				list-style-type: none;
+				font-family: "Courier New", Georgia;
+			}
+			
+			h1 {
+				font-size: 30px;
+			}
+
+		
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script src="Curve.js"></script>
+	</head>
+	
+	<body>
+		<h1>Hearthstone Card Curve Graph</h1>
+		<a>Bigger Circles = More cards with that value<br>Cost gets bigger down the way</a><br><br>
+		<input type="checkbox" id="ha" checked><a>Health+Attack</a></input>&nbsp;&nbsp;
+		<input type="checkbox" id="h" checked><a style="color:red;">Health</a></input>&nbsp;&nbsp;
+		<input type="checkbox" id="a" checked><a style="color:blue;">Attack</a></input><br>
+		Zoom <input type="number" id="zoom" value="80"></input>&nbsp;&nbsp;
+		Circle <input type="number" id="circle" value="0.8"></input>
+	</body>
+	
+	<footer>
+		<script src="JSGMF.js"></script>
+		<script src="Plot.js"></script>
+		<script>
+		
+			function game_background(){return 'white';}
+			function game_wbackground(){return 'white';}
+			function game_title(){return 'Hearthstone Card Curve Plotter';}
+			function game_width(){return 3000;}
+			function game_height(){return 3000;}
+			function game_padding(){return 100;}
+			
+			JSGMF.createCanvas();
+			JSGMF.init();
+		
+		</script>
+	</footer>
+
+</html>
